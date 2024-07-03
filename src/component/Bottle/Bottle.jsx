@@ -1,13 +1,13 @@
 import './Bottle.css'
-const Bottle = ({bottle}) => {
+const Bottle = ({ bottle, handleAddToCart }) => {
     // console.log(bottle);
-    const {name , img , price }=  bottle;
+    const { name, img, price } = bottle;
     return (
         <div className="bottle" >
             <h3>Bottle Name : {name} </h3>
-            <p> <img src= {img} ></img> </p>
+            <p> <img src={img} ></img> </p>
             <p> Price $ {price} </p>
-            <button>Get Purchase</button>
+            <button onClick={() => handleAddToCart(bottle)} >Get Purchase</button>
         </div>
     );
 };
