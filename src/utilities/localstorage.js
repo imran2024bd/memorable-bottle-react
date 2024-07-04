@@ -18,7 +18,7 @@ const addToLS = id => {
     saveCartToLS(cart);
 }
 
-export {addToLS}
+export {addToLS , getStoredCart}
 
 
 
@@ -49,3 +49,6 @@ export {addToLS}
 // }
 
 // export {addToLS}
+
+
+// 41-6 [Optional] Intro To Local Storage To Store Data Just One Item
