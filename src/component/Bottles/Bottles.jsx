@@ -12,7 +12,7 @@ const Bottles = () => {
             .then(data => setBottles(data))
     }, [])
 
-    const handleAddToCart = bottle = {
+    const handleAddToCart = bottle => {
         const newCart = [...cart, bottle];
         setCart(newCart);
     }
