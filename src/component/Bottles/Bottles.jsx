@@ -3,6 +3,7 @@ import { useState } from "react";
 import Bottle from "../Bottle/Bottle";
 import './Bootles.css'
 import { addToLS, getStoredCart } from "../../utilities/localstorage";
+import Cart from "../Cart/Cart";
 
 const Bottles = () => {
     const [bottles, setBottles] = useState([]);
@@ -14,11 +15,35 @@ const Bottles = () => {
     }, [])
 
     // load cart from local storage
+
+    // useEffect(() => {
+    //     console.log('Called the useEffect', bottles.length);
+    //     if (bottles.length > 0) {
+    //         const storedCart = getStoredCart();
+    //         console.log(storedCart);
+    //     }
+    // }, [bottles])
+
+
+    // 41 - 8[Optional] Display Saved Cart From Local Storage
+
     useEffect(() => {
         console.log('Called the useEffect', bottles.length);
-        if (bottles.length > 0) {
+        if (bottles.length) {
             const storedCart = getStoredCart();
-            console.log(storedCart);
+            // console.log(storedCart, bottles);
+            const savedCart = [];
+            for (const id of storedCart) {
+                console.log(id);
+                const bottle = bottles.find(bottle => bottle.id === id);
+                if (bottle) {
+                    savedCart.push(bottle)
+                }
+                // console.log(bottle);
+                console.log('saved cart', savedCart);
+                setCart(savedCart);
+            }
+
         }
     }, [bottles])
 
@@ -31,7 +56,7 @@ const Bottles = () => {
 
 
 
-    // const handleAddToCart = bottle = {
+    // const handleAddToCart = bottle => {
     //     // console.log('Add to chart');
     //     console.log(bottle);
     //     const newCart = [...cart, bottle];
@@ -42,7 +67,9 @@ const Bottles = () => {
     return (
         <div>
             <h3> Total no. of Bottle : {bottles.length} </h3>
-            <h4>Cart: {cart.length} </h4>
+
+            <Cart cart={cart} ></Cart>
+
             <div className="bottles-container">
                 {
                     bottles.map(bottle => <Bottle
