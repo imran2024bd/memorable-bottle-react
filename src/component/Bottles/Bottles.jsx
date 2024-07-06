@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Bottle from "../Bottle/Bottle";
 import './Bootles.css'
-import { addToLS, getStoredCart } from "../../utilities/localstorage";
+import { addToLS, getStoredCart, removeFromLS } from "../../utilities/localstorage";
 import Cart from "../Cart/Cart";
 
 const Bottles = () => {
@@ -54,8 +54,6 @@ const Bottles = () => {
         addToLS(bottle.id);
     }
 
-
-
     // const handleAddToCart = bottle => {
     //     // console.log('Add to chart');
     //     console.log(bottle);
@@ -63,12 +61,21 @@ const Bottles = () => {
     //     setCart(newCart);
     // }
 
+    const handleRemoveFromCart =  id => {
+        // UI or Visula Cart remove
+        const remainingCart = cart.filter(bottle => bottle.id !== id);
+        setCart(remainingCart);
+
+        // Remove from LS
+        removeFromLS(id);
+    }
+
 
     return (
         <div>
             <h3> Total no. of Bottle : {bottles.length} </h3>
 
-            <Cart cart={cart} ></Cart>
+            <Cart cart={cart} handleRemoveFromCart= {handleRemoveFromCart} ></Cart>
 
             <div className="bottles-container">
                 {
@@ -83,3 +90,9 @@ const Bottles = () => {
 };
 
 export default Bottles;
+
+
+// 41-9 [Optional] PropTypes Warning And Remove From Local Storage And Cart
+// Remove from LS cart  Time: 5.41 -11.40 , 
+// Remove from UI Time: 11.45
+
